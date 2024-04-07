@@ -21,7 +21,7 @@ struct DIAGNAL_HOME: View {
                     .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                     .padding()
                 Button(action: {
-                    
+                    isDisplayingMovies = true
                 }, label: {
                     CartButton(titele: "Romantic Comedy")
                 })
@@ -29,7 +29,7 @@ struct DIAGNAL_HOME: View {
             }
             .navigationTitle("DIAGNAL")
             .fullScreenCover(isPresented: $isDisplayingMovies, content: {
-//                FullScreenView(isPresented: $isPresentingFullScreen)
+                MoviesGrid(isMoviesList: $isDisplayingMovies)
             })
         }
     }
@@ -52,6 +52,6 @@ struct CartButton: View {
     }
 }
 
-#Preview {
-    CartButton(titele: "Add to Cart")
-}
+//#Preview {
+//    CartButton(titele: "Add to Cart")
+//}
