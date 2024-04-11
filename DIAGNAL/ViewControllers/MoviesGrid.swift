@@ -10,10 +10,12 @@ import SwiftUI
 struct MoviesGrid: View {
     
     @Binding var isMoviesList: Bool
+    @Binding var isSearching: Bool
     
-    init(isMoviesList: Binding<Bool>) {
+    init(isMoviesList: Binding<Bool>, isSearching: Binding<Bool>) {
         // Initialize the isMoviesList binding
         self._isMoviesList = isMoviesList
+        self._isSearching = isSearching
         
         //Use this if NavigationBarTitle is with Large Font
         UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.white]
@@ -52,6 +54,15 @@ struct MoviesGrid: View {
                             .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                     }
                     .foregroundColor(.blue)
+                },
+                trailing: HStack {
+                    Button(action: {
+                        
+                    }) {
+                        Image(systemName: "magnifyingglass")
+                            .foregroundColor(.white)
+                            .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                    }
                 }
             )
         }
@@ -59,5 +70,5 @@ struct MoviesGrid: View {
 }
 
 #Preview {
-    MoviesGrid(isMoviesList: .constant(false))
+    MoviesGrid(isMoviesList: .constant(false), isSearching: .constant(false))
 }
