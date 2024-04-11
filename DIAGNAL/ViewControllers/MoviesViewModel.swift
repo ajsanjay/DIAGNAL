@@ -16,4 +16,7 @@ final class MoviesViewModel: ObservableObject {
     let columns: [GridItem] = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
     
     @Published var isShowingDetail = false
+    @Published var isSearching = false
+    @Published var filteredContentItems: [DiagnalData] = []
+    @Published var movieTitle = ""
 }
