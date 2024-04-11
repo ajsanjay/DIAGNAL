@@ -10,12 +10,13 @@ import SwiftUI
 struct MoviesGrid: View {
     
     @Binding var isMoviesList: Bool
-    @Binding var isSearching: Bool
+    @State var isSearching: Bool
+    @State private var movieTitle = "Romantic Comedy"
     
-    init(isMoviesList: Binding<Bool>, isSearching: Binding<Bool>) {
+    init(isMoviesList: Binding<Bool>, isSearching: Bool) {
         // Initialize the isMoviesList binding
         self._isMoviesList = isMoviesList
-        self._isSearching = isSearching
+        self._isSearching = State(initialValue: isSearching)
         
         //Use this if NavigationBarTitle is with Large Font
         UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.white]
@@ -42,7 +43,21 @@ struct MoviesGrid: View {
                 .padding()
             }
             .background(.black)
-            .navigationBarTitle("Romantic Comedy", displayMode: .automatic)
+            .navigationBarTitle("Romantic Comedy", displayMode: .automatic) // Clear the default title
+                .overlay(
+                    isSearching ?
+                        TextField("Search Text", text: $movieTitle)
+                            .textFieldStyle(PlainTextFieldStyle())
+                            .foregroundColor(.black)
+                            .padding(.horizontal)
+                            .frame(height: 40)
+                            .background(Color.white.opacity(1))
+                            .cornerRadius(8)
+                            .padding(.horizontal)
+                            .padding(.bottom, 8)
+                        : nil,
+                    alignment: .top
+                )
             .foregroundColor(.white)
             .navigationBarItems(
                 leading: HStack {
@@ -57,7 +72,8 @@ struct MoviesGrid: View {
                 },
                 trailing: HStack {
                     Button(action: {
-                        
+                        isSearching = true
+                        print(isSearching)
                     }) {
                         Image(systemName: "magnifyingglass")
                             .foregroundColor(.white)
@@ -70,5 +86,5 @@ struct MoviesGrid: View {
 }
 
 #Preview {
-    MoviesGrid(isMoviesList: .constant(false), isSearching: .constant(false))
+    MoviesGrid(isMoviesList: .constant(false), isSearching: false)
 }

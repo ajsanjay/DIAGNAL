@@ -29,7 +29,7 @@ struct DIAGNAL_HOME: View {
             }
             .navigationTitle("DIAGNAL")
             .fullScreenCover(isPresented: $isDisplayingMovies, content: {
-                MoviesGrid(isMoviesList: $isDisplayingMovies, isSearching: .constant(false))
+                MoviesGrid(isMoviesList: $isDisplayingMovies, isSearching: false)
             })
         }
     }
