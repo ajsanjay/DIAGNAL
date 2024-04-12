@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MovieGridCell: View {
     
-    let data: DiagnalData
+    let data: Movie
     
     var body: some View {
         VStack {
@@ -25,5 +25,5 @@ struct MovieGridCell: View {
 }
 
 #Preview {
-    MovieGridCell(data: MockData.page1.page.contentItems.content[0])
+    MovieGridCell(data: Movie(name: "Rear Window", posterImage: "poster2.jpg"))
 }

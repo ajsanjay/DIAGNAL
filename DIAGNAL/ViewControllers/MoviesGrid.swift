@@ -30,6 +30,16 @@ struct MoviesGrid: View {
                     ForEach(viewModel.filteredContentItems.indices, id: \.self) { index in
                         MovieGridCell(data: viewModel.filteredContentItems[index])
                             .frame(height: screenHeight * 0.3)
+                            .id(index)
+                            .onAppear {
+                                // Check if this is the last item and not already reached bottom
+                                if index == viewModel.filteredContentItems.indices.last {
+                                    viewModel.currentPageIndex = viewModel.currentPageIndex + 1
+                                    if viewModel.currentPageIndex < viewModel.pages.count {
+                                        viewModel.filteredContentItems.append(contentsOf: viewModel.pageContnet(page: viewModel.pages[viewModel.currentPageIndex]))
+                                    }
+                                }
+                            }
                     }
                 }
                 .padding()
@@ -77,22 +87,24 @@ struct MoviesGrid: View {
                 }) {
                     Image(systemName: "magnifyingglass")
                         .foregroundColor(.white)
-                        .font(.title)
+                        .font(.title2)
                 }
             )
         }
         .onAppear {
+            viewModel.currentPageIndex = 0
+            viewModel.filteredContentItems = viewModel.pageContnet(page: viewModel.pages[viewModel.currentPageIndex])
             filterContentItems()
         }
     }
     
     private func filterContentItems() {
         if viewModel.isSearching {
-            viewModel.filteredContentItems = MockData.page1.page.contentItems.content.filter { item in
+            viewModel.filteredContentItems = viewModel.filteredContentItems.filter { item in
                 return item.name.lowercased().contains(viewModel.movieTitle.lowercased())
             }
         } else {
-            viewModel.filteredContentItems = MockData.page1.page.contentItems.content
+            viewModel.filteredContentItems = viewModel.filteredContentItems
         }
     }
 }
